@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier
                                 .wrapContentSize()
                                 .background(Color.Gray),
-                            text = "Hello!",
+                            text = "Hello  World!",
                             fontSize = 30.sp
                         )
                         CustomText(
