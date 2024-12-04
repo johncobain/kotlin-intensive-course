@@ -1,0 +1,4 @@
+C:\Users\andre\workspace\kotlin-intensive-course\GreetingKMP\composeApp\build\generated\compose\resourceGenerator\kotlin\commonMainResourceAccessors\greetingkmp\composeapp\generated\resources\Drawable0.commonMain.kt
+C:\Users\andre\workspace\kotlin-intensive-course\GreetingKMP\composeApp\src\androidMain\kotlin\com.example\composeApp\MainActivity.kt
+C:\Users\andre\workspace\kotlin-intensive-course\GreetingKMP\composeApp\src\commonMain\kotlin\com.example\composeApp\App.kt
+C:\Users\andre\workspace\kotlin-intensive-course\GreetingKMP\composeApp\build\generated\compose\resourceGenerator\kotlin\commonResClass\greetingkmp\composeapp\generated\resources\Res.kt
