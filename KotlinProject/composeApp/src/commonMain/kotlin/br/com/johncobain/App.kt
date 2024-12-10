@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import br.com.johncobain.ui.ExpensesScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import moe.tlaster.precompose.PreComposeApp
 
@@ -16,10 +17,7 @@ fun App() {
         val colors = getColorsTheme()
 
         AppTheme {
-            Column(modifier = Modifier.fillMaxSize()){
-                Text("Welcome")
-                Text("Kotlin Multiplatform ComposeApp Course")
-            }
+            ExpensesScreen(onExpenseClick = {})
         }
     }
 }
