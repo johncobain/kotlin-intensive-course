@@ -39,6 +39,7 @@ kotlin {
             api(compose.foundation)
             api(compose.animation)
             implementation(compose.material)
+            api(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -78,6 +79,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures{
+        compose = true
     }
 }
 

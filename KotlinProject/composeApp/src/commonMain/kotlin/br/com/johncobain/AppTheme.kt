@@ -25,7 +25,7 @@ fun getColorsTheme(): DarkModeColors {
     val isDarkMode = false
 
     val Purple = Color(0xFF6A66FF)
-    val ColorExpenseItem = if(isDarkMode) Color(0xFF090808) else Color(0xFF1F1F1)
+    val ColorExpenseItem = if(isDarkMode) Color(0xFF090808) else Color(0xFFF1F1F1)
     val BackgroundColor = if(isDarkMode) Color(0xFF1E1C1C) else Color.White
     val TextColor = if(isDarkMode) Color.White else Color.Black
     val AddIconColor = if(isDarkMode) Purple else Color.Black
