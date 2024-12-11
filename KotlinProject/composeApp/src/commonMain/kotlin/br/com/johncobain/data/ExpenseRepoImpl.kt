@@ -4,21 +4,25 @@ import br.com.johncobain.domain.ExpenseRepository
 import br.com.johncobain.model.Expense
 import br.com.johncobain.model.ExpenseCategory
 
-class ExpenseRepoImpl: ExpenseRepository {
+class ExpenseRepoImpl(private val expenseManager: ExpenseManager): ExpenseRepository {
     override fun getAllExpenses(): List<Expense> {
-        return ExpenseManager.fakeExpenseList
+        return expenseManager.fakeExpenseList
     }
 
     override fun addExpense(expense: Expense) {
-        ExpenseManager.addNewExpense(expense)
+        expenseManager.addNewExpense(expense)
     }
 
     override fun editExpense(expense: Expense) {
-        ExpenseManager.editExpense(expense)
+        expenseManager.editExpense(expense)
     }
 
     override fun getCategories(): List<ExpenseCategory> {
-        return ExpenseManager.getCategories()
+        return expenseManager.getCategories()
+    }
+
+    override fun deleteExpense(expense: Expense): List<Expense> {
+        TODO("Not yet implemented")
     }
 
 }
