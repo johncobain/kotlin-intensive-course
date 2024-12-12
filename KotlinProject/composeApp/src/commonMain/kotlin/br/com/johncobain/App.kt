@@ -42,26 +42,29 @@ fun App() {
             Scaffold (
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
-                    TopAppBar(elevation = 0.dp,
+                    TopAppBar(
+                        elevation = 0.dp,
                         title = {
                             Text(text = titleTopBar,
                                 fontSize = 25.sp,
-                                color = colors.textColor)
-                        },navigationIcon = {
-                            if(isEditOrAddExpenses){
+                                color = colors.textColor
+                            )
+                        },
+                        navigationIcon = {
+                            if (isEditOrAddExpenses) {
                                 IconButton(
                                     onClick = {
                                         navigator.popBackStack()
                                     }
-                                ){
+                                ) {
                                     Icon(
                                         modifier = Modifier.padding(start = 16.dp),
                                         imageVector = Icons.Default.ArrowBack,
                                         tint = colors.textColor,
-                                        contentDescription = "Back arrow icon"
+                                        contentDescription = "back arrow icon"
                                     )
                                 }
-                            }else{
+                            } else {
                                 Icon(
                                     modifier = Modifier.padding(start = 16.dp),
                                     imageVector = Icons.Default.Apps,
@@ -69,12 +72,13 @@ fun App() {
                                     contentDescription = "Dashboard icon"
                                 )
                             }
+
                         },
                         backgroundColor = colors.backgroundColor
                     )
                 },
                 floatingActionButton = {
-                    if(!isEditOrAddExpenses){
+                    if (!isEditOrAddExpenses) {
                         FloatingActionButton(
                             modifier = Modifier.padding(8.dp),
                             onClick = {
@@ -83,7 +87,7 @@ fun App() {
                             shape = RoundedCornerShape(50),
                             backgroundColor = colors.addIconColor,
                             contentColor = Color.White
-                        ){
+                        ) {
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 tint = Color.White,
@@ -91,8 +95,7 @@ fun App() {
                             )
                         }
                     }
-                }
-            ) {
+                }) {
                 Navigation(navigator)
             }
         }
@@ -103,13 +106,14 @@ fun App() {
 fun getTitleTopAppBar(navigator: Navigator): String {
     var titleTopBar = TitleTopBarTypes.DASHBOARD
 
-    val isOnAddExpenses = navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}")
-    if(isOnAddExpenses){
+    val isOnAddExpenses =
+        navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}?")
+    if (isOnAddExpenses) {
         titleTopBar = TitleTopBarTypes.ADD
     }
 
-    val isOnEditExpenses = navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
-    isOnEditExpenses?.let {
+    val isOnEditExpense = navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
+    isOnEditExpense?.let {
         titleTopBar = TitleTopBarTypes.EDIT
     }
 

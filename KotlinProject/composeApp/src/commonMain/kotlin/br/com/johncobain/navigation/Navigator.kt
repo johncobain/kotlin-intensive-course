@@ -8,6 +8,7 @@ import br.com.johncobain.data.ExpenseManager
 import br.com.johncobain.data.ExpenseRepoImpl
 import br.com.johncobain.getColorsTheme
 import br.com.johncobain.presentation.ExpensesViewModel
+import br.com.johncobain.ui.ExpensesDetailScreen
 import br.com.johncobain.ui.ExpensesScreen
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.navigation.NavHost
@@ -35,11 +36,18 @@ fun Navigation(navigator: Navigator) {
             }
         }
 
-        scene(route = "/addExpenses/{Id}"){ backStackEntry ->
-            val idFromPath = backStackEntry.path<Long>("Id")
-            val isAddExpense = idFromPath?.let { id -> viewModel.getExpenseWithId(id) }
+        scene(route = "/addExpenses/{id}?"){ backStackEntry ->
+            val idFromPath = backStackEntry.path<Long>("id")
+            val expenseToEditOrAdd = idFromPath?.let { id -> viewModel.getExpenseWithId(id) }
 
-            // create ExpensesDetailScreen
+            ExpensesDetailScreen(expenseToEdit = expenseToEditOrAdd){ expense ->
+                if(expenseToEditOrAdd == null){
+                    viewModel.addExpense(expense)
+                }else{
+                    viewModel.editExpense(expense)
+                }
+                navigator.popBackStack()
+            }
         }
     }
 
