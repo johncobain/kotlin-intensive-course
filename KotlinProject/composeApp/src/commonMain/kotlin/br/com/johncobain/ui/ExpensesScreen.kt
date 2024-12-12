@@ -32,10 +32,11 @@ import androidx.compose.ui.unit.sp
 import br.com.johncobain.data.ExpenseManager
 import br.com.johncobain.getColorsTheme
 import br.com.johncobain.model.Expense
+import br.com.johncobain.presentation.ExpensesUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
+fun ExpensesScreen(uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit) {
 
     val colors = getColorsTheme()
 
@@ -45,11 +46,11 @@ fun ExpensesScreen(onExpenseClick: (expense: Expense) -> Unit) {
     ) {
         stickyHeader {
             Column(modifier = Modifier.background(colors.backgroundColor)) {
-                ExpensesTotalHeader(1023.3)
+                ExpensesTotalHeader(uiState.total)
                 AllExpensesHeader()
             }
         }
-        items(ExpenseManager.fakeExpenseList) { expense ->
+        items(uiState.expenses) { expense ->
             ExpensesItem(expense = expense, onExpenseClick = onExpenseClick)
         }
     }

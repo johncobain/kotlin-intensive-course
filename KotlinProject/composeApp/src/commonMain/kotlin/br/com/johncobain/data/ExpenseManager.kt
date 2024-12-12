@@ -10,39 +10,45 @@ object ExpenseManager {
     val fakeExpenseList = mutableListOf(
         Expense(
             id = currentId++,
-            amount = 70.0,
+            amount = 70.00,
             category = ExpenseCategory.GROCERIES,
             description = "Weekly buy"
         ),
         Expense(
             id = currentId++,
-            amount = 10.2,
+            amount = 10.20,
             category = ExpenseCategory.SNACKS,
             description = "Hommies"
         ),
         Expense(
             id = currentId++,
-            amount = 21000.0,
+            amount = 21000.00,
             category = ExpenseCategory.CAR,
             description = "Audi A1"
         ),
         Expense(
             id = currentId++,
-            amount = 120.0,
+            amount = 120.00,
             category = ExpenseCategory.PARTY,
             description = "Weekend party"
         ),
         Expense(
             id = currentId++,
-            amount = 25.0,
+            amount = 25.00,
             category = ExpenseCategory.HOUSE,
             description = "Cleaning"
         ),
         Expense(
             id = currentId++,
-            amount = 120.0,
+            amount = 120.00,
             category = ExpenseCategory.OTHER,
             description = "Services"
+        ),
+        Expense(
+            id = currentId++,
+            amount = 120.00,
+            category = ExpenseCategory.HOUSE,
+            description = "House maintenance"
         )
     )
 
