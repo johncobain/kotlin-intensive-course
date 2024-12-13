@@ -2,6 +2,7 @@ package br.com.johncobain.presentation
 
 import br.com.johncobain.domain.ExpenseRepository
 import br.com.johncobain.model.Expense
+import br.com.johncobain.model.ExpenseCategory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -59,5 +60,9 @@ class ExpensesViewModel(private val repo: ExpenseRepository): ViewModel() {
 
     fun getExpenseWithId(id: Long): Expense? {
         return allExpenses.first { it.id == id }
+    }
+
+    fun getCategories(): List<ExpenseCategory> {
+        return repo.getCategories()
     }
 }
