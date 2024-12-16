@@ -5,7 +5,7 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-class ExampleText {
+class ExampleTest {
 
     @Test
     fun sum_must_succedd(){

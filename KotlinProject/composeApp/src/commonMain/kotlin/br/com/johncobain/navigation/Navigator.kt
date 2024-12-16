@@ -11,18 +11,18 @@ import br.com.johncobain.presentation.ExpensesViewModel
 import br.com.johncobain.ui.ExpensesDetailScreen
 import br.com.johncobain.ui.ExpensesScreen
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
+import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.viewmodel.viewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun Navigation(navigator: Navigator) {
 
     val colors = getColorsTheme()
-    val viewModel = viewModel(modelClass = ExpensesViewModel::class){
-        ExpensesViewModel(ExpenseRepoImpl(ExpenseManager))
-    }
+    val viewModel = koinViewModel(ExpensesViewModel::class) { parametersOf() }
 
     NavHost(
         modifier = Modifier.background(colors.backgroundColor),
