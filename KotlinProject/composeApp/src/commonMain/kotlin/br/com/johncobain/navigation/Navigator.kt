@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import br.com.johncobain.data.ExpenseManager
-import br.com.johncobain.data.ExpenseRepoImpl
 import br.com.johncobain.getColorsTheme
 import br.com.johncobain.presentation.ExpensesViewModel
 import br.com.johncobain.ui.ExpensesDetailScreen
@@ -15,7 +13,6 @@ import moe.tlaster.precompose.koin.koinViewModel
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.path
-import moe.tlaster.precompose.viewmodel.viewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
