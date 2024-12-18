@@ -1,13 +1,10 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("app.cash.sqldelight") version "2.0.2"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 kotlin {
@@ -41,6 +38,10 @@ kotlin {
             implementation("io.insert-koin:koin-core")
             implementation("io.insert-koin:koin-android")
             implementation("app.cash.sqldelight:android-driver:2.0.2")
+
+            //ktor
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.kotlinx.coroutines.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -65,12 +66,22 @@ kotlin {
             implementation("io.insert-koin:koin-compose")
             api("moe.tlaster:precompose-koin:1.5.10")
 
+            // ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+
+            implementation(libs.ktor.serialization)
+            implementation(libs.ktor.content.negotiation)
+
             // SQLDelight
             implementation("app.cash.sqldelight:runtime:2.0.2")
         }
         iosMain.dependencies {
             implementation("app.cash.sqldelight:native-driver:2.0.2")
             implementation("co.touchlab:stately-common:2.0.5")
+
+            //ktor
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

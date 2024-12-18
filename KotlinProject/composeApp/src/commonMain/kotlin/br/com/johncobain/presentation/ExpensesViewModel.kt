@@ -3,63 +3,86 @@ package br.com.johncobain.presentation
 import br.com.johncobain.domain.ExpenseRepository
 import br.com.johncobain.model.Expense
 import br.com.johncobain.model.ExpenseCategory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
 
-data class ExpensesUiState(
-    val expenses: List<Expense> = emptyList(),
-    val total: Double = 0.0
-)
+sealed class ExpensesUiState {
+    object Loading: ExpensesUiState()
+    data class  Success(val expenses: List<Expense>, val total: Double): ExpensesUiState()
+    data class Error(val message: String): ExpensesUiState()
+}
 
 class ExpensesViewModel(private val repo: ExpenseRepository): ViewModel() {
 
-    private val _uiState = MutableStateFlow(ExpensesUiState())
+    private val _uiState = MutableStateFlow<ExpensesUiState>(ExpensesUiState.Loading)
     val uiState = _uiState.asStateFlow()
-    private var allExpenses: MutableList<Expense> = mutableListOf()
 
     init {
-        getAllExpenses()
+        getExpenseList()
     }
 
-    private fun updateExpenseList(){
+    private fun getExpenseList(){
         viewModelScope.launch {
-            allExpenses = repo.getAllExpenses().toMutableList()
-            updateState()
+            try {
+                delay(1000)
+                val expenses = repo.getAllExpenses()
+                _uiState.value = ExpensesUiState.Success(expenses, expenses.sumOf { it.amount })
+            } catch (e: Exception){
+                _uiState.value = ExpensesUiState.Error(e.message ?: "Unknown error")
+            }
         }
     }
 
-    private fun getAllExpenses(){
-        repo.getAllExpenses()
-        updateExpenseList()
+    private suspend fun updateExpenseList(){
+        try {
+            val expenses = repo.getAllExpenses()
+            _uiState.value = ExpensesUiState.Success(expenses, expenses.sumOf { it.amount })
+        } catch (e: Exception){
+            _uiState.value = ExpensesUiState.Error(e.message ?: "Unknown error")
+        }
     }
 
     fun addExpense(expense: Expense){
-        repo.addExpense(expense)
-        updateExpenseList()
+        viewModelScope.launch {
+            try {
+                repo.addExpense(expense)
+                updateExpenseList()
+            } catch (e: Exception){
+                _uiState.value = ExpensesUiState.Error(e.message ?: "Unknown error")
+            }
+        }
     }
 
     fun editExpense(expense: Expense){
-        repo.editExpense(expense)
-        updateExpenseList()
+        viewModelScope.launch {
+            try {
+                repo.editExpense(expense)
+                updateExpenseList()
+            } catch (e: Exception){
+                _uiState.value = ExpensesUiState.Error(e.message ?: "Unknown error")
+            }
+        }
     }
 
     fun deleteExpense(expense: Expense){
-        repo.deleteExpense(expense)
-        updateExpenseList()
-    }
-
-    private fun updateState(){
-        _uiState.update { state->
-            state.copy( expenses = allExpenses, total = allExpenses.sumOf { it.amount })
+        viewModelScope.launch {
+            try {
+                repo.deleteExpense(expense)
+                updateExpenseList()
+            } catch (e: Exception){
+                _uiState.value = ExpensesUiState.Error(e.message ?: "Unknown error")
+            }
         }
     }
 
     fun getExpenseWithId(id: Long): Expense? {
-        return allExpenses.first { it.id == id }
+        return (_uiState.value as? ExpensesUiState.Success)?.expenses?.firstOrNull { it.id == id }
     }
 
     fun getCategories(): List<ExpenseCategory> {
